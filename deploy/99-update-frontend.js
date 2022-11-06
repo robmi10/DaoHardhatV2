@@ -18,25 +18,57 @@ module.exports = async function () {
 
 async function updateAbi() {
   const leader = await ethers.getContract("Leader");
-  fs.writeFileSync(
-    FRONT_END_ABI_FILE,
-    leader.interface.format(ethers.utils.FormatTypes.json)
-  );
+  const daoGovernance = await ethers.getContract("DaoGovernance");
+  const daoToken = await ethers.getContract("DaoToken");
+  const timeLock = await ethers.getContract("TimeLock");
+
+  const currentABI = [
+    { daoToken: daoToken.interface.format(ethers.utils.FormatTypes.json) },
+    { leader: leader.interface.format(ethers.utils.FormatTypes.json) },
+    {
+      daoGovernance: daoGovernance.interface.format(
+        ethers.utils.FormatTypes.json
+      ),
+    },
+    { timeLock: timeLock.interface.format(ethers.utils.FormatTypes.json) },
+  ];
+  fs.writeFileSync(FRONT_END_ABI_FILE, JSON.stringify(currentABI));
 }
 
 async function updateContractAdresses() {
   const leader = await ethers.getContract("Leader");
+  const daoGovernance = await ethers.getContract("DaoGovernance");
+  const daoToken = await ethers.getContract("DaoToken");
+  const timeLock = await ethers.getContract("TimeLock");
+
   const chainId = network.config.chainId.toString();
   const currentAddresses = JSON.parse(
     fs.readFileSync(FRONT_END_ADDRESSED_FILE, "utf8")
   );
   if (chainId in currentAddresses) {
-    if (!currentAddresses[chainId].includes(leader.address)) {
-      currentAddresses[chainId].push(leader.address);
+    if (
+      !currentAddresses[chainId].includes([
+        leader.address,
+        daoToken.address,
+        daoGovernance.address,
+        timeLock.address,
+      ])
+    ) {
+      currentAddresses[chainId].push([
+        { daoToken: daoToken.address },
+        { leader: leader.address },
+        { daoGovernance: daoGovernance.address },
+        { timeLock: timeLock.address },
+      ]);
     }
   }
   {
-    currentAddresses[chainId] = [leader.address];
+    currentAddresses[chainId] = [
+      { daoToken: daoToken.address },
+      { leader: leader.address },
+      { daoGovernance: daoGovernance.address },
+      { timeLock: timeLock.address },
+    ];
   }
 
   fs.writeFileSync(FRONT_END_ADDRESSED_FILE, JSON.stringify(currentAddresses));
