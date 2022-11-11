@@ -12,7 +12,7 @@ contract DaoGovernance is Governor, GovernorSettings, GovernorCountingSimple, Go
     TimelockController _timelock, uint256 _quorompercentage, uint256 _votingperiod ,uint256 _votingdelay 
      )
         Governor("DaoGovernance")
-        GovernorSettings(_votingdelay, _votingperiod, 0)
+        GovernorSettings(0, 1, 0)
         GovernorVotes(_token)
         GovernorVotesQuorumFraction(_quorompercentage)
         GovernorTimelockControl(_timelock)
@@ -61,6 +61,8 @@ contract DaoGovernance is Governor, GovernorSettings, GovernorCountingSimple, Go
         override(Governor, IGovernor)
         returns (uint256)
     {
+
+
         return super.propose(targets, values, calldatas, description);
     }
 

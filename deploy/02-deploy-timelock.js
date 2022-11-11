@@ -6,6 +6,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
 
+  console.log({ deployer });
   const TimeLock = await deploy("TimeLock", {
     from: deployer,
     args: [3600, [], []],

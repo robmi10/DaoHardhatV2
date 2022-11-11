@@ -14,6 +14,6 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log: true,
   });
   console.log({ deployer });
-  console.log("leader second", leader.address);
+  console.log("Deploy leader at address", leader.address);
 };
 module.exports.tags = ["all", "Leader"];

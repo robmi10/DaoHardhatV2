@@ -43,6 +43,7 @@ describe("testDao", function () {
     const proposeEvent = await proposeTx.wait(1);
     const proposalId = proposeEvent.events[0].args.proposalId;
 
+    console.log({ proposalId });
     if (LOCAL_CHAIN.includes(network.name)) {
       console.log({ LOCAL_CHAIN });
       console.log({ VOTING_DELAY });
