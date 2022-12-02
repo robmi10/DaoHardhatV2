@@ -50,6 +50,8 @@ describe("testDao", function () {
 
       await moveBlocks(VOTING_DELAY + 1);
     }
+    console.log({ proposalId });
+
     const voteTx = await daoGovernance.castVoteWithReason(
       proposalId,
       1,
