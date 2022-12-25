@@ -40,7 +40,11 @@ describe("testDao", function () {
       [leaderFunc],
       REASON
     );
+
     const proposeEvent = await proposeTx.wait(1);
+
+    console.log({ proposeEvent });
+
     const proposalId = proposeEvent.events[0].args.proposalId;
 
     console.log({ proposalId });
@@ -59,6 +63,7 @@ describe("testDao", function () {
     );
     await voteTx.wait(1);
     console.log("User Voted for propsal!");
+    console.log({ voteTx });
     let proposalIdState = await daoGovernance.state(proposalId);
 
     expect(proposalIdState.toString()).to.equal("1");
