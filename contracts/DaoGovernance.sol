@@ -12,7 +12,7 @@ contract DaoGovernance is Governor, GovernorSettings, GovernorCountingSimple, Go
     TimelockController _timelock, uint256 _quorompercentage, uint256 _votingperiod ,uint256 _votingdelay 
      )
         Governor("DaoGovernance")
-        GovernorSettings(0, 1, 0)
+        GovernorSettings(0, 25, 0)
         GovernorVotes(_token)
         GovernorVotesQuorumFraction(_quorompercentage)
         GovernorTimelockControl(_timelock)
