@@ -36,12 +36,21 @@ module.exports = {
     },
     localhost: {
       chainId: 31337,
+      accounts: [`0x${process.env.PRIVATE_KEY}`],
       allowUnlimitedContractSize: true,
     },
     polygon: {
       url: process.env.API_URL,
       accounts: [`0x${process.env.PRIVATE_KEY}`],
       allowUnlimitedContractSize: true,
+    },
+    ganache: {
+      url: "HTTP://127.0.0.1:7545",
+      chainId: 1337,
+      allowUnlimitedContractSize: true,
+      accounts: [
+        "0xd6911f88baafa348da77f63c615912e963650ec41923f3e533512f4e46b0c74e",
+      ],
     },
   },
 };
